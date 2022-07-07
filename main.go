@@ -89,3 +89,25 @@ func (d Dog) getWeight() int {
 func (d Dog) getType() string {
 	return "dog"
 }
+
+func main() {
+	feedForAllAnimals := 0
+
+	var AllAnimals = []Animals{
+		Cat{"Kitty", 2},
+	    Dog{"Palkan", 10},
+		Caw{"Dunysha", 380},
+		Dog{"Bob", 14},
+		Cat{"Simon", 3},
+		Caw{"Toniy", 450},
+	} 
+
+	for _,v := range AllAnimals {
+		monthMealCount := v.getQuantityMeal()
+		feedForAllAnimals += monthMealCount
+		fmt.Printf("%v що зветься %v  вагою %v з'їдає за місяць %v кг корму \n", v.getType(), v.getNickname(), v.getWeight(), monthMealCount)
+	}
+	// fmt.Printf("\n")
+	fmt.Printf("Шоб прогодувати всіх тварин треба %v кг корму \n", feedForAllAnimals)
+	
+}
