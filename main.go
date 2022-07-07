@@ -8,6 +8,26 @@ const (
 	cawEatsPerMonth = 25
 )
 
+type Animals interface {
+	nicknameGetter
+	mealGetter
+	weightGetter
+	typeGetter
+}
+type nicknameGetter interface {
+     getNickname() string
+}
+type mealGetter interface {
+	getQuantityMeal()  int
+}
+
+type weightGetter interface {
+	getWeight() int
+}
+
+type typeGetter interface {
+	getType() string
+}
 type Cat struct {
 	Nickname string
 	Weight int
