@@ -3,37 +3,37 @@ package main
 import "fmt"
 
 const (
-	catEatsPerMonth = 7
-    dogEatsPerMonth = 10
-	cawEatsPerMonth = 25
+	catEatsPerMonth = 7.
+    dogEatsPerMonth = 10.
+	cawEatsPerMonth = 25.
 )
 
 type Animals interface {
-	nicknameGetter
+	nicknamer
 	mealGetter
 	weightGetter
-	typeGetter
+	typer
 }
-type nicknameGetter interface {
+type nicknamer interface {
      getNickname() string
 }
 type mealGetter interface {
-	getQuantityMeal()  int
+	getQuantityMeal()  float64
 }
 
 type weightGetter interface {
-	getWeight() int
+	getWeight() float64
 }
 
-type typeGetter interface {
+type typer interface {
 	getType() string
 }
 type Cat struct {
 	Nickname string
-	Weight int
+	Weight float64
 }
 
-func (c Cat) getQuantityMeal() int {
+func (c Cat) getQuantityMeal() float64 {
 	return c.Weight * catEatsPerMonth
 }
 
@@ -41,7 +41,7 @@ func (c Cat) getNickname() string {
 	return c.Nickname
 }
 
-func (c Cat) getWeight() int {
+func (c Cat) getWeight() float64 {
 	return c.Weight
 }
 
@@ -51,10 +51,10 @@ func (c Cat) getType() string {
 
 type Caw struct {
 	Nickname string
-	Weight int
+	Weight float64
 }
 
-func (cw Caw) getQuantityMeal() int {
+func (cw Caw) getQuantityMeal() float64 {
 	return cw.Weight * catEatsPerMonth
 }
 
@@ -62,7 +62,7 @@ func (cw Caw) getNickname() string {
 	return cw.Nickname
 }
 
-func (cw Caw) getWeight() int {
+func (cw Caw) getWeight() float64 {
 	return cw.Weight
 }
 
@@ -71,10 +71,10 @@ func (cw Caw) getType() string {
 }
 type Dog struct {
 	Nickname string
-	Weight int
+	Weight float64
 }
 
-func (d Dog) getQuantityMeal() int {
+func (d Dog) getQuantityMeal() float64 {
 	return d.Weight * dogEatsPerMonth
 }
 
@@ -82,7 +82,7 @@ func (d Dog) getNickname() string {
 	return d.Nickname
 }
 
-func (d Dog) getWeight() int {
+func (d Dog) getWeight() float64 {
 	return d.Weight
 }
 
@@ -90,8 +90,19 @@ func (d Dog) getType() string {
 	return "dog"
 }
 
+func feedAllAnimals(a []Animals) float64 {
+	foodForAll := 0.
+	for _,v := range a {
+		monthMealCount := v.getQuantityMeal()
+		foodForAll += monthMealCount
+		fmt.Printf("%v що зветься %v  вагою %v з'їдає за місяць %v кг корму \n", v.getType(), v.getNickname(), v.getWeight(), monthMealCount)
+	
+	}
+	return foodForAll
+}
+
+
 func main() {
-	feedForAllAnimals := 0
 
 	var AllAnimals = []Animals{
 		Cat{"Kitty", 2},
@@ -102,12 +113,7 @@ func main() {
 		Caw{"Toniy", 450},
 	} 
 
-	for _,v := range AllAnimals {
-		monthMealCount := v.getQuantityMeal()
-		feedForAllAnimals += monthMealCount
-		fmt.Printf("%v що зветься %v  вагою %v з'їдає за місяць %v кг корму \n", v.getType(), v.getNickname(), v.getWeight(), monthMealCount)
-	}
-	// fmt.Printf("\n")
-	fmt.Printf("Шоб прогодувати всіх тварин треба %v кг корму \n", feedForAllAnimals)
+	foodForAllAnimals := feedAllAnimals(AllAnimals)
+	fmt.Printf("Шоб прогодувати всіх тварин треба %v кг корму \n", foodForAllAnimals)
 	
 }
